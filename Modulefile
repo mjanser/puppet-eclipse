@@ -1,4 +1,4 @@
-name    'martin-eclipse'
+name    'mjanser-eclipse'
 version '0.1.0'
 source 'git://github.com/mjanser/puppet-eclipse.git'
 author 'Martin Janser'
