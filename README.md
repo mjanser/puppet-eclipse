@@ -12,15 +12,9 @@ Currently supports:
 
 ## Usage
 
-Install default version
+Install with default options
 
     include eclipse
-
-Install a specific version
-
-    class { 'eclipse':
-      version => '4.3'
-    }
 
 Install Eclipse using packages
 
@@ -32,4 +26,17 @@ Install Eclipse with downloading it
 
     class { 'eclipse':
       method => 'download'
+    }
+
+Install a specific version (only for download method)
+
+    class { 'eclipse':
+      method  => 'download',
+      version => '4.3'
+    }
+
+Install a plugin using packages
+
+    eclipse::plugin { 'egit':
+      method => 'package'
     }
