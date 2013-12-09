@@ -11,6 +11,6 @@ class eclipse::params {
     default => 'eclipse-'
   }
 
-  $target_dir = '/opt/eclipse'
+  $target_dir = '/opt'
 
 }

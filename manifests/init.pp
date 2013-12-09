@@ -7,17 +7,32 @@
 #  include eclipse
 #
 class eclipse (
-  $version = '4.3',
-  $method  = 'package',
-  $ensure  = present
+  $package         = 'standard',
+  $release_name    = 'kepler',
+  $service_release = 'SR1',
+  $method          = 'package',
+  $ensure          = present
 ) {
 
   include eclipse::params
 
   case $method {
-    download: { include eclipse::install::download }
-    package: { include eclipse::install::package }
-    default: { fail("Installation method ${method} is not supported") }
+    download: {
+      class { 'eclipse::install::download':
+        package         => $package,
+        release_name    => $release_name,
+        service_release => $service_release,
+        ensure          => $ensure
+      }
+    }
+    package: {
+      class { 'eclipse::install::package':
+        ensure => $ensure
+      }
+    }
+    default: {
+      fail("Installation method ${method} is not supported")
+    }
   }
 
 }

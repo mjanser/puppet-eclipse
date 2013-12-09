@@ -8,7 +8,7 @@ describe 'eclipse', :type => 'class' do
       }
     end
     it {
-      should include_class('eclipse::install::package')
+      should contain_class('eclipse::install::package')
     }
   end
 
@@ -19,7 +19,7 @@ describe 'eclipse', :type => 'class' do
       }
     end
     it {
-      should include_class('eclipse::install::download')
+      should contain_class('eclipse::install::download')
     }
   end
 

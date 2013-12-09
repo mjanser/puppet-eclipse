@@ -6,13 +6,14 @@
 #
 #  include eclipse::install::package
 #
-class eclipse::install::package {
+class eclipse::install::package (
+  $ensure = present
+) {
 
-  include eclipse
   include eclipse::params
 
   package { $eclipse::params::package:
-    ensure => $eclipse::ensure
+    ensure => $ensure
   }
 
 }
