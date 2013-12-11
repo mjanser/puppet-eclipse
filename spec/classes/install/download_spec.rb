@@ -21,6 +21,9 @@ describe 'eclipse::install::download', :type => 'class' do
         'ensure' => 'present',
         'url'    => "http://example.com/eclipse/technology/epp/downloads/release/kepler/SR1/eclipse-standard-kepler-SR1-linux-gtk-x86_64.tar.gz"
       })
+      should contain_file('/usr/share/applications/opt-eclipse.desktop').with({
+        'ensure' => 'present'
+      })
     }
   end
 
@@ -32,6 +35,9 @@ describe 'eclipse::install::download', :type => 'class' do
     end
     it {
       should contain_archive('eclipse').with({
+        'ensure' => 'absent'
+      })
+      should contain_file('/usr/share/applications/opt-eclipse.desktop').with({
         'ensure' => 'absent'
       })
     }

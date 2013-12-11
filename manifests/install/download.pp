@@ -25,4 +25,9 @@ class eclipse::install::download (
     target => $eclipse::params::target_dir
   }
 
+  file { '/usr/share/applications/opt-eclipse.desktop':
+    ensure  => $ensure,
+    content => template('eclipse/opt-eclipse.desktop.erb')
+  }
+
 }
