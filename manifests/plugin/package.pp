@@ -10,6 +10,7 @@ define eclipse::plugin::package (
   $ensure = present
 ) {
 
+  include eclipse
   include eclipse::params
 
   package { "${eclipse::params::package_prefix}${title}":

@@ -24,11 +24,13 @@ class eclipse (
         service_release => $service_release,
         ensure          => $ensure
       }
+      $bin = $eclipse::params::download_bin
     }
     package: {
       class { 'eclipse::install::package':
         ensure => $ensure
       }
+      $bin = $eclipse::params::package_bin
     }
     default: {
       fail("Installation method ${method} is not supported")

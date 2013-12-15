@@ -17,6 +17,7 @@ describe 'eclipse::plugin::package', :type => :define do
       }
     end
     it {
+      should include_class('eclipse')
       should contain_package('eclipse-egit')
     }
   end

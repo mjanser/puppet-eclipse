@@ -10,7 +10,11 @@ class eclipse::params {
   $package_prefix = $::osfamily ? {
     default => 'eclipse-'
   }
+  $package_bin = $::osfamily ? {
+    default => '/usr/bin/eclipse'
+  }
 
   $target_dir = '/opt'
+  $download_bin = "${target_dir}/eclipse/eclipse"
 
 }

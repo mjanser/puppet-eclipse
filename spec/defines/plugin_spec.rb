@@ -22,4 +22,20 @@ describe 'eclipse::plugin', :type => :define do
       should contain_eclipse__plugin__package('egit')
     }
   end
+
+  describe 'Install plugin via p2 director' do
+    let :title do
+      'egit'
+    end
+    let :params do
+      {
+        :method => 'p2_director',
+        :ensure => 'present'
+      }
+    end
+    it {
+      should include_class('eclipse')
+      should contain_eclipse__plugin__p2_director('egit')
+    }
+  end
 end

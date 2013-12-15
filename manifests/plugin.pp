@@ -7,8 +7,10 @@
 #  eclipse::plugin { 'egit': }
 #
 define eclipse::plugin (
-  $method  = 'package',
-  $ensure  = present
+  $method     = 'package',
+  $iu         = $title,
+  $repository = 'http://download.eclipse.org/releases/kepler',
+  $ensure     = present
 ) {
 
   include eclipse
@@ -22,6 +24,13 @@ define eclipse::plugin (
     package: {
       eclipse::plugin::package { $title:
         ensure => $ensure
+      }
+    }
+    p2_director: {
+      eclipse::plugin::p2_director { $title:
+        iu         => $iu,
+        repository => $repository,
+        ensure     => $ensure
       }
     }
     default: { fail("Installation method ${method} is not supported") }
