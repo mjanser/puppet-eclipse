@@ -20,7 +20,7 @@ define eclipse::plugin (
 
   case $method {
     package: {
-      package { "${eclipse::params::package_prefix}${title}":
+      eclipse::plugin::package { $title:
         ensure => $ensure
       }
     }

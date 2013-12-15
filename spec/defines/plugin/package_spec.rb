@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'eclipse::plugin', :type => :define do
+describe 'eclipse::plugin::package', :type => :define do
   let :facts do
     {
       :osfamily => 'redhat'
@@ -13,13 +13,11 @@ describe 'eclipse::plugin', :type => :define do
     end
     let :params do
       {
-        :method => 'package',
         :ensure => 'present'
       }
     end
     it {
-      should include_class('eclipse')
-      should contain_eclipse__plugin__package('egit')
+      should contain_package('eclipse-egit')
     }
   end
 end
