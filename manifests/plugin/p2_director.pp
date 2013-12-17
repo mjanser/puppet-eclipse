@@ -16,7 +16,7 @@ define eclipse::plugin::p2_director (
   include eclipse::params
 
   $eclipse_cmd = "${eclipse::bin} -application org.eclipse.equinox.p2.director -noSplash"
-  $check_cmd   = "${eclipse_cmd} -listInstalledRoots | grep '^${iu}[/$]'"
+  $check_cmd   = "${eclipse_cmd} -listInstalledRoots | egrep '^${iu}(/|$)'"
 
   if $ensure == present {
     exec { "eclipse-p2-director: install ${title}":
