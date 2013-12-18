@@ -9,7 +9,7 @@
 define eclipse::plugin (
   $method     = 'package',
   $iu         = $title,
-  $repository = 'http://download.eclipse.org/releases/kepler',
+  $repository = '',
   $ensure     = present
 ) {
 

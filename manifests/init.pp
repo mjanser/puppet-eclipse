@@ -16,6 +16,8 @@ class eclipse (
 
   include eclipse::params
 
+  $repository = "http://download.eclipse.org/releases/${release_name}"
+
   case $method {
     download: {
       class { 'eclipse::install::download':

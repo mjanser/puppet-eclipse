@@ -8,12 +8,17 @@
 #
 define eclipse::plugin::install::p2_director (
   $iu         = $title,
-  $repository = 'http://download.eclipse.org/releases/kepler',
+  $repository = '',
   $ensure     = present
 ) {
 
   include eclipse
   include eclipse::params
+
+  $repository_url = $repository ? {
+    ''      => $eclipse::repository,
+    default => $repository
+  }
 
   $eclipse_cmd = "${eclipse::bin} -application org.eclipse.equinox.p2.director -noSplash"
   $check_cmd   = "${eclipse_cmd} -listInstalledRoots | egrep '^${iu}(/|$)'"
