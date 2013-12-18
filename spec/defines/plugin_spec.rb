@@ -19,7 +19,7 @@ describe 'eclipse::plugin', :type => :define do
     end
     it {
       should include_class('eclipse')
-      should contain_eclipse__plugin__package('egit')
+      should contain_eclipse__plugin__install__package('egit')
     }
   end
 
@@ -35,7 +35,7 @@ describe 'eclipse::plugin', :type => :define do
     end
     it {
       should include_class('eclipse')
-      should contain_eclipse__plugin__p2_director('egit')
+      should contain_eclipse__plugin__install__p2_director('egit')
     }
   end
 end

@@ -22,12 +22,12 @@ define eclipse::plugin (
 
   case $method {
     package: {
-      eclipse::plugin::package { $title:
+      eclipse::plugin::install::package { $title:
         ensure => $ensure
       }
     }
     p2_director: {
-      eclipse::plugin::p2_director { $title:
+      eclipse::plugin::install::p2_director { $title:
         iu         => $iu,
         repository => $repository,
         ensure     => $ensure

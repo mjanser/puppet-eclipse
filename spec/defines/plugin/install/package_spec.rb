@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'eclipse::plugin::package', :type => :define do
+describe 'eclipse::plugin::install::package', :type => :define do
   let :facts do
     {
       :osfamily => 'redhat'

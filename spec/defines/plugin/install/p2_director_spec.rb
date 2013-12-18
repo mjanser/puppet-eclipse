@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'eclipse::plugin::p2_director', :type => :define do
+describe 'eclipse::plugin::install::p2_director', :type => :define do
   let :facts do
     {
       :osfamily => 'redhat'

@@ -1,12 +1,12 @@
-# Type: eclipse::plugin::p2_director
+# Type: eclipse::plugin::install::p2_director
 #
 # This type installs a Eclipse plugin via the p2 director of Eclipse
 #
 # Sample Usage:
 #
-#  eclipse::plugin::p2_director { 'org.eclipse.egit.feature.group': }
+#  eclipse::plugin::install::p2_director { 'org.eclipse.egit.feature.group': }
 #
-define eclipse::plugin::p2_director (
+define eclipse::plugin::install::p2_director (
   $iu         = $title,
   $repository = 'http://download.eclipse.org/releases/kepler',
   $ensure     = present

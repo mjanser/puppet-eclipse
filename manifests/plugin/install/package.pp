@@ -1,12 +1,12 @@
-# Type: eclipse::plugin::package
+# Type: eclipse::plugin::install::package
 #
 # This type installs a Eclipse plugin via package
 #
 # Sample Usage:
 #
-#  eclipse::plugin::package { 'egit': }
+#  eclipse::plugin::install::package { 'egit': }
 #
-define eclipse::plugin::package (
+define eclipse::plugin::install::package (
   $ensure = present
 ) {
 
