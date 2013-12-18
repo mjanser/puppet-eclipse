@@ -25,7 +25,7 @@ define eclipse::plugin::install::p2_director (
 
   if $ensure == present {
     exec { "eclipse-p2-director: install ${title}":
-      command => "${eclipse_cmd} -repository '${repository}' -installIU '${iu}'",
+      command => "${eclipse_cmd} -repository '${repository_url}' -installIU '${iu}'",
       unless  => $check_cmd,
       require => Class['eclipse']
     }

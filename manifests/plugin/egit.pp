@@ -14,14 +14,10 @@ class eclipse::plugin::egit (
   include eclipse
   include eclipse::params
 
-  if $method == 'package' {
-    eclipse::plugin::install::package { 'egit':
-      ensure => $ensure
-    }
-  } else {
-    eclipse::plugin::install::p2_director { 'org.eclipse.egit.feature.group':
-      ensure => $ensure
-    }
+  eclipse::plugin { 'egit':
+    iu     => 'org.eclipse.egit.feature.group',
+    method => $method,
+    ensure => $ensure
   }
 
 }
