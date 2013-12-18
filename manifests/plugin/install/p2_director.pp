@@ -26,12 +26,14 @@ define eclipse::plugin::install::p2_director (
   if $ensure == present {
     exec { "eclipse-p2-director: install ${title}":
       command => "${eclipse_cmd} -repository '${repository}' -installIU '${iu}'",
-      unless  => $check_cmd
+      unless  => $check_cmd,
+      require => Class['eclipse']
     }
   } else {
     exec { "eclipse-p2-director: uninstall ${title}":
       command => "${eclipse_cmd} -uninstallIU '${iu}'",
-      onlyif  => $check_cmd
+      onlyif  => $check_cmd,
+      require => Class['eclipse']
     }
   }
 

@@ -14,7 +14,8 @@ define eclipse::plugin::install::package (
   include eclipse::params
 
   package { "${eclipse::params::package_prefix}${title}":
-    ensure => $ensure
+    ensure  => $ensure,
+    require => Class['eclipse']
   }
 
 }
