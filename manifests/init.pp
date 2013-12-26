@@ -11,6 +11,7 @@ class eclipse (
   $release_name    = 'kepler',
   $service_release = 'SR1',
   $method          = 'package',
+  $owner_group     = undef,
   $ensure          = present
 ) {
 
@@ -24,6 +25,7 @@ class eclipse (
         package         => $package,
         release_name    => $release_name,
         service_release => $service_release,
+        owner_group     => $owner_group,
         ensure          => $ensure
       }
       $bin = $eclipse::params::download_bin
