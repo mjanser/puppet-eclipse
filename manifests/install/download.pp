@@ -21,12 +21,16 @@ class eclipse::install::download (
   $url = "${mirror}/eclipse/technology/epp/downloads/release/${release_name}/${service_release}/${filename}"
 
   if $owner_group and $ensure == 'present' {
-    file { "${eclipse::params::target_dir}/eclipse":
-      ensure => directory,
-      group  => $owner_group,
-      mode   => 'u=rwx,g=rwxs,o=rx'
+    exec { 'eclipse ownership':
+      command     => "chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
+      refreshonly => true,
+      subscribe   => Archive['eclipse']
     }
-    File["${eclipse::params::target_dir}/eclipse"] -> Archive['eclipse']
+    exec { 'eclipse permissions':
+      command     => "find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
+      refreshonly => true,
+      subscribe   => Archive['eclipse']
+    }
   }
 
   archive { 'eclipse':
@@ -38,6 +42,7 @@ class eclipse::install::download (
   file { '/usr/share/applications/opt-eclipse.desktop':
     ensure  => $ensure,
     content => template('eclipse/opt-eclipse.desktop.erb'),
+    mode    => 644,
     require => Archive['eclipse']
   }
 
