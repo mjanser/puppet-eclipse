@@ -17,33 +17,39 @@ class eclipse::install::download (
 
   include eclipse::params
 
-  $filename = "eclipse-${package}-${release_name}-${service_release}-linux-gtk-${::architecture}.tar.gz"
-  $url = "${mirror}/eclipse/technology/epp/downloads/release/${release_name}/${service_release}/${filename}"
+  $filename = "eclipse-${package}-${release_name}-${service_release}-linux-gtk-${::architecture}"
+  $url = "${mirror}/eclipse/technology/epp/downloads/release/${release_name}/${service_release}/${filename}.tar.gz"
 
   if $owner_group and $ensure == 'present' {
     exec { 'eclipse ownership':
       command     => "chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
-      subscribe   => Archive['eclipse']
+      subscribe   => Archive[$filename]
     }
-    exec { 'eclipse permissions':
+    exec { 'eclipse group permissions':
       command     => "find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
       refreshonly => true,
-      subscribe   => Archive['eclipse']
+      subscribe   => Archive[$filename]
+    }
+    exec { 'eclipse write permissions':
+      command     => "chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
+      refreshonly => true,
+      subscribe   => Archive[$filename]
     }
   }
 
-  archive { 'eclipse':
-    ensure => $ensure,
-    url    => $url,
-    target => $eclipse::params::target_dir
+  archive { $filename:
+    ensure   => $ensure,
+    url      => $url,
+    target   => $eclipse::params::target_dir,
+    root_dir => 'eclipse'
   }
 
   file { '/usr/share/applications/opt-eclipse.desktop':
     ensure  => $ensure,
     content => template('eclipse/opt-eclipse.desktop.erb'),
     mode    => 644,
-    require => Archive['eclipse']
+    require => Archive[$filename]
   }
 
 }
