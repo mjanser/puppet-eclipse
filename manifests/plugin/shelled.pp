@@ -14,7 +14,7 @@ class eclipse::plugin::shelled (
   include eclipse
   include eclipse::params
 
-  $repository = 'https://downloads.sourceforge.net/project/shelled/shelled/ShellEd%25202.0.2/update'
+  $repository = 'http://sourceforge.net/projects/shelled/files/shelled/update/'
 
   eclipse::plugin { 'shelled':
     iu         => 'net.sourceforge.shelled.feature.group',
