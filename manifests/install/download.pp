@@ -17,7 +17,7 @@ class eclipse::install::download (
 
   include eclipse::params
 
-  $filename = "eclipse-${package}-${release_name}-${service_release}-linux-gtk-${::architecture}"
+  $filename = "eclipse-${package}-${release_name}-${service_release}-linux-gtk-${::hardwaremodel}"
   $url = "${mirror}/eclipse/technology/epp/downloads/release/${release_name}/${service_release}/${filename}.tar.gz"
 
   if $owner_group and $ensure == 'present' {
