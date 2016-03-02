@@ -1,0 +1,23 @@
+{
+	"name": "mjanser-eclipse",
+	"version": "0.2.0",
+	"author": "Martin Janser",
+	"summary": "Install Eclipse",
+	"license": "MIT",
+	"description": "Install Eclipse with plugins",
+	"source": "git://github.com/mjanser/puppet-eclipse.git",
+	"project_page": "https://github.com/mjanser/puppet-eclipse.git",
+	"requirements": [{
+			"name": "pe",
+			"version_requirement": ">= 3.0.0 < 2015.4.0"
+		},{
+			"name": "puppet",
+			"version_requirement": ">= 3.0.0 < 5.0.0"
+		}
+	],
+	"dependencies": [{
+			"name": "gini/archive",
+			"version_requirement": ">= 0.2.0"
+		}
+	]
+}
