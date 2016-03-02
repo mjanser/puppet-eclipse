@@ -16,6 +16,7 @@ class eclipse::install::download (
 ) {
 
   include eclipse::params
+  include archive::prerequisites
 
   $archsuffix = $::architecture ? {
     /i.86/           => '',
