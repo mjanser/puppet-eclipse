@@ -28,17 +28,17 @@ class eclipse::install::download (
 
   if $owner_group and $ensure == 'present' {
     exec { 'eclipse ownership':
-      command     => "chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
+      command     => "/bin/chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse group permissions':
-      command     => "find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
+      command     => "/bin/find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse write permissions':
-      command     => "chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
+      command     => "bin/chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
@@ -55,7 +55,7 @@ class eclipse::install::download (
   file { '/usr/share/applications/opt-eclipse.desktop':
     ensure  => $ensure,
     content => template('eclipse/opt-eclipse.desktop.erb'),
-    mode    => 644,
+    mode    => '644',
     require => Archive[$filename]
   }
 
