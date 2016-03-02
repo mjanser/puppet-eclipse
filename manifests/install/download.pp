@@ -38,7 +38,7 @@ class eclipse::install::download (
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse write permissions':
-      command     => "bin/chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
+      command     => "/bin/chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
