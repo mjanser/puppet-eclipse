@@ -52,12 +52,14 @@ class eclipse::install::download (
     url      => $url,
     target   => $eclipse::params::target_dir,
     timeout  => 0,
+    root_dir => 'eclipse',
+    strip_components => 1
   }
 
   file { '/usr/share/applications/opt-eclipse.desktop':
     ensure  => $ensure,
     content => template('eclipse/opt-eclipse.desktop.erb'),
-    mode    => '755',
+    mode    => '644',
     require => Archive[$filename]
   }
 
