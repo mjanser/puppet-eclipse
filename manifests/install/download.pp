@@ -16,6 +16,7 @@ class eclipse::install::download (
 ) {
 
   include eclipse::params
+  include archive::prerequisites
 
   $archsuffix = $::architecture ? {
     /i.86/           => '',
@@ -28,17 +29,17 @@ class eclipse::install::download (
 
   if $owner_group and $ensure == 'present' {
     exec { 'eclipse ownership':
-      command     => "chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
+      command     => "/bin/chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse group permissions':
-      command     => "find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
+      command     => "/bin/find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse write permissions':
-      command     => "chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
+      command     => "/bin/chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
@@ -48,8 +49,9 @@ class eclipse::install::download (
     ensure   => $ensure,
     url      => $url,
     target   => $eclipse::params::target_dir,
-    root_dir => 'eclipse',
     timeout  => 0,
+    root_dir => 'eclipse',
+    strip_components => 1
   }
 
   file { '/usr/share/applications/opt-eclipse.desktop':
