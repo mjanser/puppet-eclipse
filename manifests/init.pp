@@ -9,7 +9,7 @@
 class eclipse (
   $package         = 'standard',
   $release_name    = 'kepler',
-  $service_release = 'SR1',
+  $service_release = 'SR2',
   $method          = 'package',
   $owner_group     = undef,
   $ensure          = present
