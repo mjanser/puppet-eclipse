@@ -16,7 +16,6 @@ class eclipse::install::download (
 ) {
 
   include eclipse::params
-  include archive::prerequisites
 
   $archsuffix = $::architecture ? {
     /i.86/           => '',
@@ -29,36 +28,38 @@ class eclipse::install::download (
 
   if $owner_group and $ensure == 'present' {
     exec { 'eclipse ownership':
-      command     => "/bin/chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
+      command     => "chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse group permissions':
-      command     => "/bin/find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
+      command     => "find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse write permissions':
-      command     => "/bin/chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
+      command     => "chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
-  }
-
-  archive { $filename:
-    ensure   => $ensure,
-    url      => $url,
-    target   => $eclipse::params::target_dir,
-    timeout  => 0,
-    root_dir => 'eclipse',
-    strip_components => 1
   }
 
   file { '/usr/share/applications/opt-eclipse.desktop':
     ensure  => $ensure,
     content => template('eclipse/opt-eclipse.desktop.erb'),
-    mode    => '644',
-    require => Archive[$filename]
+    mode    => "644",
+    require => Archive[ "/var/tmp/source/${filename}.tar.gz" ],
+  }
+
+  # per https://forge.puppet.com/puppet/archive
+  include '::archive'
+  archive { "/var/tmp/source/${filename}.tar.gz":
+    ensure       => $ensure,
+    source       => $url,
+    path         => "/var/tmp/source/${filename}.tar.gz",
+    extract      => true,
+    extract_path => $eclipse::params::target_dir,
+    creates      => "${eclipse::params::target_dir}/eclipse",
   }
 
 }
