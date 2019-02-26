@@ -10,7 +10,7 @@ class eclipse::install::download (
   $package         = 'standard',
   $release_name    = 'kepler',
   $service_release = 'SR1',
-  $mirror          = 'http://mirror.switch.ch/ftp/mirror',
+  $mirror          = 'https://archive.eclipse.org',
   $owner_group     = undef,
   $ensure          = present
 ) {
@@ -24,7 +24,7 @@ class eclipse::install::download (
   }
 
   $filename = "eclipse-${package}-${release_name}-${service_release}-linux-gtk${archsuffix}"
-  $url = "${mirror}/eclipse/technology/epp/downloads/release/${release_name}/${service_release}/${filename}.tar.gz"
+  $url = "${mirror}/technology/epp/downloads/release/${release_name}/${service_release}/${filename}.tar.gz"
 
   if $owner_group and $ensure == 'present' {
     exec { 'eclipse ownership':
