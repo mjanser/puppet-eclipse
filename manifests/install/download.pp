@@ -29,16 +29,19 @@ class eclipse::install::download (
   if $owner_group and $ensure == 'present' {
     exec { 'eclipse ownership':
       command     => "chgrp -R '${owner_group}' '${eclipse::params::target_dir}/eclipse'",
+      path        => $::path,
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse group permissions':
       command     => "find '${eclipse::params::target_dir}/eclipse' -type d -exec chmod g+s {} \\;",
+      path        => $::path,
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
     exec { 'eclipse write permissions':
       command     => "chmod -R g+w '${eclipse::params::target_dir}/eclipse'",
+      path        => $::path,
       refreshonly => true,
       subscribe   => Archive[$filename]
     }
